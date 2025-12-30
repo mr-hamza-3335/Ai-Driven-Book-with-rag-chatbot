@@ -47,14 +47,14 @@ COPY --chown=appuser:appuser app/ ./app/
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
-ENV PORT=8000
+ENV PORT=8080
 
-# Expose port
-EXPOSE 8000
+# Expose port (Fly.io uses 8080 by default)
+EXPOSE 8080
 
-# Health check
+# Health check using dynamic port
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:8000/health || exit 1
+    CMD curl -f http://localhost:${PORT:-8080}/health || exit 1
 
-# Run the application with optimized settings
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "1"]
+# Run the application with dynamic port from environment
+CMD ["sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8080} --workers 1"]
