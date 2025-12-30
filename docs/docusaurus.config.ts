@@ -11,13 +11,18 @@ const config: Config = {
     v4: true,
   },
 
-  // GitHub Pages deployment config
-  url: 'https://mr-hamza-3335.github.io',
-  baseUrl: '/Ai-Driven-Book-with-rag-chatbot/',
+  // Deployment config - supports both Vercel and GitHub Pages
+  url: process.env.SITE_URL || 'https://mr-hamza-3335.github.io',
+  baseUrl: process.env.BASE_URL || '/',
 
   organizationName: 'mr-hamza-3335',
   projectName: 'Ai-Driven-Book-with-rag-chatbot',
   trailingSlash: false,
+
+  // Custom fields for runtime configuration
+  customFields: {
+    apiUrl: process.env.NEXT_PUBLIC_API_URL || process.env.API_URL || 'http://localhost:8000',
+  },
 
   onBrokenLinks: 'warn',
 

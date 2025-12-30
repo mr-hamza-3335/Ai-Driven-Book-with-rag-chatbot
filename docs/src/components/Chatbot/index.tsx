@@ -11,7 +11,7 @@ interface ChatbotProps {
   apiUrl?: string;
 }
 
-export default function Chatbot({ apiUrl = 'http://localhost:8001' }: ChatbotProps) {
+export default function Chatbot({ apiUrl = 'http://localhost:8000' }: ChatbotProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
